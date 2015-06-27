@@ -8,7 +8,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.8/ref/settings/
 """
 
-from os.path import abspath, basename, dirname, join, normpath
+from os.path import abspath, basename, dirname, join
 from sys import path
 
 
@@ -40,18 +40,21 @@ DJANGO_APPS = (
 )
 
 THIRD_PARTY_APPS = (
-    'django_extensions',
-    'rest_framework',
     'corsheaders',
-    'oauth2_provider',
+    'django_extensions',
+    'easy_pjax',
     'material',
     'material.frontend',
     'material.admin',
-    'easy_pjax',
+    'oauth2_provider',
+    'rest_framework',
+    'sorl.thumbnail',
 )
 
 LOCAL_APPS = (
     'api',
+    'channels',
+    'contents',
 )
 
 INSTALLED_APPS = THIRD_PARTY_APPS + DJANGO_APPS + LOCAL_APPS
