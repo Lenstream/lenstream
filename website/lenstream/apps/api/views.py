@@ -1,4 +1,5 @@
 from rest_framework import generics, mixins, viewsets
+from rest_framework.exceptions import APIException, NotFound
 
 from .serializers import ChannelSerializer, ContentSerializer
 
@@ -30,4 +31,13 @@ class ChannelContentListView(generics.ListAPIView):
     serializer_class = ContentSerializer
 
     def get_queryset(self):
-        return Content.objects.all()
+        try:
+            slug = self.kwargs['slug']
+
+            if not Channel.objects.filter(slug=slug).exists():
+                raise NotFound(detail="Channel with slug '%s' does not exist." % slug)
+
+        except KeyError:
+            raise APIException(status_code=400, default_detail="Channel slug not found in the URL")
+
+        return Content.objects.filter(channel__slug=slug)
