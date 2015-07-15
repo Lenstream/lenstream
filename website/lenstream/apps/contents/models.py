@@ -21,3 +21,13 @@ class Content(ActivatorModel, TimeStampedModel):
     photo = models.ImageField(upload_to=set_photo_upload_folder, max_length=255, blank=True)
     video = models.FileField(upload_to=set_video_upload_folder, max_length=255, blank=True)
     text = models.CharField(max_length=140, blank=True)
+
+    def __unicode__(self):
+        if self.photo:
+            return self.photo.url
+        elif self.video:
+            return self.video.url
+        elif self.text:
+            return self.text
+        else:
+            return "Blank content"
